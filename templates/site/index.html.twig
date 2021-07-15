@@ -3,13 +3,28 @@
 {% block body %}
     <div class="container">
         {% for group in productGroups %}
-            <div class="row">
-                {% for product in group %}
-                    <div class="col">
-                        <p>{{ product.name }}</p>
-                        <p>{{ product.price }}</p>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="product-cell">
+                        <div>{{ group.products[0].name }}</div>
+                        <div>{{ group.products[0].price }}</div>
                     </div>
-                {% endfor %}
+                    {% for product in group.products[1:] %}
+                        <div class="product-cell">
+                            +
+                        </div>
+                        <div class="product-cell">
+                            <div>{{ product.name }}</div>
+                            <div>{{ product.price }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-1 text-center">
+                    =
+                </div>
+                <div class="col-1 text-center">
+                    {{ group.sum }}
+                </div>
             </div>
         {% endfor %}
     </div>

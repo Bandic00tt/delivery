@@ -22,15 +22,19 @@ class Selection
     {
         $this->sortProducts();
         $productGroups = [];
-        $group = [];
+        $group = [
+            'products' => [],
+            'sum' => 0
+        ];
 
         foreach ($this->products as $product) {
             if ($this->sumPricesInGroup($group) >= $this->deliverySum) {
+                $group['sum'] = $this->sumPricesInGroup($group);
                 $productGroups[] = $group;
                 $group = [];
             }
 
-            $group[] = $product;
+            $group['products'][] = $product;
         }
 
         return $productGroups;
@@ -42,7 +46,7 @@ class Selection
      */
     private function sumPricesInGroup(array $group): int
     {
-        return array_sum(array_column($group, 'price'));
+        return array_sum(array_column($group['products'], 'price'));
     }
 
     private function sortProducts(): void

@@ -1,0 +1,7 @@
+
+.product-cell {
+    float: right;
+    min-width: 50px;
+    min-height: 50px;
+    text-align: center;
+}
