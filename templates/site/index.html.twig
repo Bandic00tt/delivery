@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {% for group in productGroups %}
+            <div class="row">
+                {% for product in group %}
+                    <div class="col">
+                        <p>{{ product.name }}</p>
+                        <p>{{ product.price }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

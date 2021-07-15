@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repository;
 
 use App\Entity\Product;
@@ -17,6 +16,21 @@ class ProductRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
+    }
+
+    public function findBySiteCode(string $siteCode): array
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery('
+            SELECT p.name, p.price
+            FROM App\Entity\Product p
+            INNER JOIN p.category c 
+            INNER JOIN c.site s
+            WHERE s.code = :siteCode
+        ')->setParameter(':siteCode', $siteCode);
+
+        return $query->getResult();
     }
 
     // /**

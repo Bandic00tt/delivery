@@ -44,6 +44,12 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="categories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $site;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -128,6 +134,18 @@ class Category
                 $product->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
 
         return $this;
     }
